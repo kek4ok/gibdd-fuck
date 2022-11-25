@@ -5,7 +5,7 @@ from loguru import logger
 
 
 def get_random_image():
-    f = open('sended_captcha.txt', 'r+')
+    f = open('../sended_captcha.txt', 'r+')
     sended_captcha = f.readlines()
     print(sended_captcha)
     all_imgs = os.listdir('imgs')

@@ -16,7 +16,7 @@ def cut_numbers(img: np.ndarray, correct_name):
         numbers.append(img[:, i * w: i * w + w])
 
     for cnt, letter in enumerate(correct_name):
-        save_path = f'imgs/training/{letter}'
+        save_path = f'bot_tg/imgs/training/{letter}'
         if not os.path.exists(save_path):
             os.makedirs(save_path)
         p = os.path.join(save_path, f"{counter}.jpg")
