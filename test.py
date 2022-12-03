@@ -4,7 +4,7 @@ import glob
 import cv2
 
 NUM_OF_IMAGES = 5
-CAPTCHA_IMAGE_FOLDER = "imgs/readi"
+CAPTCHA_IMAGE_FOLDER = "bot_tg/imgs/readi"
 captcha_image_files = glob.glob(os.path.join(CAPTCHA_IMAGE_FOLDER, "*"))
 
 counter = 0
@@ -26,7 +26,5 @@ def cut_numbers(img: np.ndarray, correct_name):
 for img in captcha_image_files:
     filename = os.path.basename(img)
     captcha_correct_text = os.path.splitext(filename)[0]
-    print(img)
-    print(captcha_correct_text)
     image = cv2.imread(img)
     cut_numbers(image, captcha_correct_text)
