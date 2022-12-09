@@ -1,31 +1,21 @@
-
 import cv2
 import numpy as np
 import os.path
 import glob
 
-
-CAPTCHA_IMAGE_FOLDER = "cap"
+CAPTCHA_IMAGE_FOLDER = "../bot_tg/imgs"
 OUTPUT_FOLDER = "readi"
 
 
-captcha_image_files = glob.glob(os.path.join(CAPTCHA_IMAGE_FOLDER, "*"))
-counts = {}
+def remove_lines(image):
+    #image = cv2.imread(img_path)
 
-
-for (i, captcha_image_file) in enumerate(captcha_image_files):
-    print("[INFO] processing image {}/{}".format(i + 1, len(captcha_image_files)))
-
-    filename = os.path.basename(captcha_image_file)
-    captcha_correct_text = os.path.splitext(filename)[0].split('_')[0]
-
-    image = cv2.imread(captcha_image_file)
-
-#даелает маску
+    # даелает маску
     image_mask = image.copy()
     for column in range(1, image_mask.shape[1] - 1):
         for row in range(1, image_mask.shape[0] - 1):
-            if (image_mask[row, column][0] <= 90 and image_mask[row, column][1] <= 90 and image_mask[row, column][2] <= 90):
+            if (image_mask[row, column][0] <= 90 and image_mask[row, column][1] <= 90 and image_mask[row, column][
+                2] <= 90):
                 image_mask[row, column][0] = 255
                 image_mask[row, column][1] = 255
                 image_mask[row, column][2] = 255
@@ -34,26 +24,28 @@ for (i, captcha_image_file) in enumerate(captcha_image_files):
                 image_mask[row, column][1] = 0
                 image_mask[row, column][2] = 0
 
-# Делаем маску больше
-    #ret, image_mask_BN = cv2.threshold(image_mask, 254, 255, cv2.THRESH_BINARY)
+    # Делаем маску больше
+    # ret, image_mask_BN = cv2.threshold(image_mask, 254, 255, cv2.THRESH_BINARY)
     image_mask_BN = cv2.cvtColor(image_mask, cv2.COLOR_BGR2GRAY)
     kernel = np.ones((3, 3), 'uint8')
-    mask = cv2.dilate(image_mask_BN, kernel, iterations = 1)
+    mask = cv2.dilate(image_mask_BN, kernel, iterations=1)
     ready_img = cv2.inpaint(image, mask, 1, cv2.INPAINT_TELEA)
 
-#Черно белое
+    # Черно белое
     image_grey = cv2.cvtColor(ready_img, cv2.COLOR_BGR2GRAY)
     ret, image_TH = cv2.threshold(image_grey, 157, 255, cv2.THRESH_BINARY)
 
-    cv2.imshow("cropped", image_TH)
-    cv2.waitKey(0)
+    return image_TH
 
-#сохранени
-    '''
-    save_path = os.path.join(OUTPUT_FOLDER)
-    name = captcha_correct_text + ".jpg"
-    all_path = os.path.join(save_path, name)
-    cv2.imwrite(all_path, image_TH)
+
+# сохранени
+'''
+save_path = os.path.join(OUTPUT_FOLDER)
+name = captcha_correct_text + ".jpg"
+all_path = os.path.join(save_path, name)
+cv2.imwrite(all_path, image_TH)
+'''
+
 '''#нарезка
     x = 0
     y = 0
@@ -129,7 +121,7 @@ for (i, captcha_image_file) in enumerate(captcha_image_files):
         cv2.imshow("cropped", one_img)
         cv2.waitKey(0)
     #pixel_matrix_RGB = image_orig.copy()
-
+'''
 
 '''
     for column in range(1, image.shape[1] - 1):
