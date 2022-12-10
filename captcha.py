@@ -24,10 +24,10 @@ def get_captcha():
     return img, token
 
 
-def get_history(answer: str, token: str):
+def get_history(answer: str, token: str, vin: str):
     url = 'https://xn--b1afk4ade.xn--90adear.xn--p1ai/proxy/check/auto/history'
     payload = {
-        "vin": "XTA210530W1730856",
+        "vin": f"{vin}",
         "checkType": "history",
         "captchaWord": answer,
         "captchaToken": token
