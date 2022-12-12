@@ -35,3 +35,53 @@ def get_history(answer: str, token: str, vin: str):
     response = requests.post(url, data=payload).json()
 
     return response
+
+def get_diagnostic(answer: str, token: str, vin: str):
+    url = 'https://xn--b1afk4ade.xn--90adear.xn--p1ai/proxy/check/auto/diagnostic'
+    payload = {
+        "vin": f"{vin}",
+        "checkType": "diagnostic",
+        "captchaWord": answer,
+        "captchaToken": token
+    }
+    response = requests.post(url, data=payload).json()
+
+    return response
+
+def get_restrict(answer: str, token: str, vin: str):
+    url = 'https://xn--b1afk4ade.xn--90adear.xn--p1ai/proxy/check/auto/restrict'
+    payload = {
+        "vin": f"{vin}",
+        "checkType": "restrict",
+        "captchaWord": answer,
+        "captchaToken": token
+    }
+    response = requests.post(url, data=payload).json()
+
+    return response
+
+def get_dtp(answer: str, token: str, vin: str):
+    url = 'https://xn--b1afk4ade.xn--90adear.xn--p1ai/proxy/check/auto/dtp'
+    payload = {
+        "vin": f"{vin}",
+        "checkType": "dtp",
+        "captchaWord": answer,
+        "captchaToken": token
+    }
+    response = requests.post(url, data=payload).json()
+
+    return response
+
+def get_wanted(answer: str, token: str, vin: str):
+    url = 'https://xn--b1afk4ade.xn--90adear.xn--p1ai/proxy/check/auto/wanted'
+    payload = {
+        "vin": f"{vin}",
+        "checkType": "wanted",
+        "captchaWord": answer,
+        "captchaToken": token
+    }
+    response = requests.post(url, data=payload).json()
+
+    return response
+
+
