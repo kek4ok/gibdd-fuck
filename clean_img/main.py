@@ -90,9 +90,13 @@ def cut_image(image_TH):
 
         img_belia = np.full((50, 30), 255, np.uint8)
         one_img = crop_img_TH[0:h, el * one_img_w:(el + 1) * one_img_w]
+        cv2.imshow("cropped", one_img)
+        cv2.waitKey(0)
         for row in range(1, one_img.shape[0] - 1):
             for col in range(1, one_img.shape[1] - 1):
                 img_belia[row, col] = one_img[row, col]
+        cv2.imshow("cropped", img_belia)
+        cv2.waitKey(0)
         numbers.append(img_belia)
 
     return numbers

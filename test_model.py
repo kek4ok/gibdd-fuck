@@ -5,7 +5,6 @@ import cv2
 import numpy as np
 from clean_img.main import thresh_image, cut_image
 from tensorflow import keras
-import matplotlib.pyplot as plt
 from osago import get_vin
 
 def recognize_captcha(numbers: list):

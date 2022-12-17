@@ -19,4 +19,4 @@ def jpg_from_base64(name: str, code):
 
 if __name__ == "__main__":
     code = get_iamge_code()
-    jpg_from_base64('temp', code)
+    jpg_from_base64('temp4', code)
