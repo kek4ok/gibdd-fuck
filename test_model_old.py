@@ -3,7 +3,7 @@ import datetime
 from captcha import *
 import cv2
 import numpy as np
-from clean_img.main import thresh_image, cut_image
+from img_2 import huy_cut, huy_clean
 from tensorflow import keras
 import matplotlib.pyplot as plt
 
@@ -77,6 +77,7 @@ def recognize_captcha(numbers: list):
         x = x / 255
         x = np.expand_dims(x, axis=0)
         res = model.predict(x, verbose=0)
+        print(np.argmax(res))
         answer += str(np.argmax(res))
 
     return answer
@@ -88,8 +89,8 @@ def try_to_solve():
         img_path, token = get_captcha()
         #plt.imshow(img_path)
         #plt.show()
-        img = thresh_image(img_path)
-        numbers = cut_image(img)
+        img = huy_clean(img_path)
+        numbers = huy_cut(img)
         answer = recognize_captcha(numbers)
         response = get_history(answer, token)
         if response.get('code') == None:
@@ -99,7 +100,7 @@ def try_to_solve():
 
 if __name__ == '__main__':
     model = keras.models.load_model('model_99.h5')
-    for i in range(20):
+    for i in range(2):
         time_start = datetime.datetime.now()
         try_to_solve()
         print(f"Time requiers: {datetime.datetime.now() - time_start}")

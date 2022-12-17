@@ -15,7 +15,6 @@ def get_numbers(img: np.ndarray):
 
 def get_captcha():
     response = requests.get('https://check.gibdd.ru/captcha').json()
-    print(response)
     base_code = response['base64jpg']
     png_recover = base64.b64decode(base_code)
     np_data = np.frombuffer(png_recover, np.uint8)
@@ -46,6 +45,7 @@ def get_diagnostic(answer: str, token: str, vin: str):
         "captchaToken": token
     }
     response = requests.post(url, data=payload).json()
+    print(response)
 
     return response
 
